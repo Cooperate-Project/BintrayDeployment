@@ -62,6 +62,9 @@ public class Deployment extends AbstractMojo {
 
 	@Parameter(property = "bintray.deploy.replaceIfExisting", required = false, defaultValue = "false")
 	private boolean replaceIfExisting;
+	
+	@Parameter(property = "bintray.deploy.replaceIfSnapshot", required = false, defaultValue = "false")
+	private boolean replaceIfSnapshot;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Server chosenServer = getServer(serverId);
@@ -70,14 +73,16 @@ public class Deployment extends AbstractMojo {
 			subjectName = chosenServer.getUsername();
 		}
 		
+		boolean replaceExisting = replaceIfExisting;
 		String versionName = version;
 		if (versionName.endsWith("-SNAPSHOT")) {
 			versionName = snapshotVersionReplacement;
+			replaceExisting = replaceIfSnapshot;
 		}
 
 		try (BintrayAPI bintrayAPI = new BintrayAPI(chosenServer.getUsername(), chosenServer.getPassword(), subjectName,
 				repositoryName, packageName)) {
-			bintrayAPI.uploadAndPublish(fileToPublish, versionName, createVersionIfMissing, replaceIfExisting);
+			bintrayAPI.uploadAndPublish(fileToPublish, versionName, createVersionIfMissing, replaceExisting);
 		} catch (BintrayCallException e) {
 			throw new MojoExecutionException("An error in communicating via Bintray API occurred.", e);
 		} catch (InitializationException e) {

@@ -67,8 +67,9 @@ public class BintrayAPI implements AutoCloseable {
 	}
 	
 	private void uploadAndPublishDirectory(File file, final VersionHandle version) throws IOException {
-		UploadMapCalculator calculator = new UploadMapCalculator(file, version.name());
+		UploadMapCalculator calculator = new UploadMapCalculator(file, version);
 		Map<String, InputStream> uploadMap = calculator.getUploadMap();
+		
 		try {
 			version.upload(uploadMap);
 		} catch (MultipleBintrayCallException e) {
@@ -82,7 +83,7 @@ public class BintrayAPI implements AutoCloseable {
 	private void uploadAndPublishSingleFile(File file, String path, VersionHandle version) throws FileNotFoundException, BintrayCallException {
 		InputStream is = new FileInputStream(file);
 		try {
-			String pathName = UploadPathUtils.create(path, version.name());
+			String pathName = UploadPathUtils.create(path, version.pkg().name(), version.name());
 			version.upload(pathName, is);
 		} finally {
 			IOUtils.closeQuietly(is);
