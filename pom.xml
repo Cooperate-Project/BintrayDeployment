@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>de.cooperateproject</groupId>
 		<artifactId>de.cooperateproject.parent.maven</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 	</parent>
 	<groupId>de.cooperateproject.maven</groupId>
 	<artifactId>de.cooperateproject.maven.bintray.deploy</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Bintray Deployment Plugin</name>
