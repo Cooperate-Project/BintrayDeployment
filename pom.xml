@@ -8,7 +8,7 @@
 		<artifactId>de.cooperate-project.parent.maven</artifactId>
 		<version>1.1.0</version>
 	</parent>
-	<groupId>de.cooperate-project.maven</groupId>
+	<groupId>de.cooperate-project</groupId>
 	<artifactId>de.cooperate-project.maven.bintray.deploy</artifactId>
 	<version>0.1.1</version>
 	<packaging>maven-plugin</packaging>
